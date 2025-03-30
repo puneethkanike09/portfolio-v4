@@ -5,7 +5,7 @@ import Image from "next/image"
 import TrueFocus from "./animations/TrueFocus"
 
 export function Hero() {
-  const mainPhrase = "Full Stack Developer | JS & TS"
+  const mainPhrase = "I build things for the Web"
 
   return (
     <section id="home" className="relative xl:min-h-screen flex items-center">
@@ -38,7 +38,7 @@ export function Hero() {
               </p>
             </div>
             <p className="text-lg text-muted-foreground max-w-md">
-              Crafting robust web applications.
+              I specialize in building responsive and dynamic web applications using the MERN stack. I bring ideas to life through code.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" asChild>
@@ -48,7 +48,7 @@ export function Hero() {
                 <a href="#contact">Get in Touch</a>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <a href="/resume.pdf" download>
+                <a href="/files/puneethResume.pdf" download>
                   Resume
                 </a>
               </Button>

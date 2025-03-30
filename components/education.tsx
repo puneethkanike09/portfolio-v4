@@ -1,38 +1,24 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { GraduationCap, Award, BookOpen } from "lucide-react"
-import SpotlightCard from "./animations/SpotlightCard"
+import { Card, CardContent } from "@/components/ui/card";
+import { GraduationCap, Award, BookOpen } from "lucide-react";
+import SpotlightCard from "./animations/SpotlightCard";
 
 export function Education() {
   const education = [
     {
       icon: <GraduationCap className="h-10 w-10 text-primary" />,
-      degree: "Master of Fine Arts in Interior Design",
-      institution: "Parsons School of Design",
-      year: "2010",
-      description: "Specialized in sustainable design practices and innovative space planning solutions.",
+      degree: "MCA (Master of Computer Applications)",
+      institution: "St Joseph Engineering College, Mangaluru",
+      year: "Feb 2023 - Aug 2024",
+      description: "Specialized in advanced computer applications with a CGPA of 8.57.",
     },
     {
       icon: <GraduationCap className="h-10 w-10 text-primary" />,
-      degree: "Bachelor of Arts in Architecture",
-      institution: "Rhode Island School of Design",
-      year: "2008",
-      description: "Foundation in architectural principles with a focus on residential design.",
+      degree: "BCA (Bachelor of Computer Applications)",
+      institution: "SDM Degree College, Ujire",
+      year: "Jan 2020 - Sep 2022",
+      description: "Foundation in computer applications with a CGPA of 7.15.",
     },
-    {
-      icon: <Award className="h-10 w-10 text-primary" />,
-      degree: "Certificate in Sustainable Design",
-      institution: "Green Design Institute",
-      year: "2012",
-      description: "Advanced training in eco-friendly materials and energy-efficient design strategies.",
-    },
-    {
-      icon: <BookOpen className="h-10 w-10 text-primary" />,
-      degree: "Professional Certification in Lighting Design",
-      institution: "International Association of Lighting Designers",
-      year: "2014",
-      description: "Specialized training in residential and commercial lighting solutions.",
-    },
-  ]
+  ];
 
   return (
     <section id="education" className="xl:min-h-screen flex items-center py-20">
@@ -41,7 +27,7 @@ export function Education() {
           <h2 className="text-3xl md:text-4xl font-bold">Education & Certifications</h2>
           <div className="mt-2 h-1 w-20 bg-primary mx-auto"></div>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-            My academic background and professional certifications in design.
+            My academic background and professional certifications in computer applications.
           </p>
         </div>
 
@@ -71,5 +57,5 @@ export function Education() {
         </div>
       </div>
     </section>
-  )
+  );
 }

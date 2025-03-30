@@ -9,36 +9,28 @@ import { useInView } from "react-intersection-observer";
 export function Experience() {
   const experiences = [
     {
-      period: "2018 - Present",
-      title: "Principal Designer",
-      company: "Interior Studio NYC",
+      period: "Jan 2025 - Present",
+      title: "Software Engineer",
+      company: "The Web People",
       description:
-        "Leading a team of designers on high-end residential and commercial projects. Responsible for client relations, concept development, and project management.",
-      tags: ["Residential", "Commercial", "Team Leadership"],
+        "Developing and maintaining web applications using modern technologies. Collaborating with cross-functional teams to deliver high-quality products.",
+      tags: ["Web Development", "Team Collaboration", "Project Management"],
     },
     {
-      period: "2015 - 2018",
-      title: "Senior Interior Designer",
-      company: "Modern Spaces Design",
+      period: "Jun 2024 - Aug 2024",
+      title: "MERN Developer Intern",
+      company: "Codelab Systems",
       description:
-        "Managed multiple residential projects from concept to completion. Collaborated with architects and contractors to ensure design integrity throughout the construction process.",
-      tags: ["Residential", "Project Management", "Client Relations"],
+        "Assisted in developing full-stack applications using the MERN stack. Contributed to code reviews and participated in agile development processes.",
+      tags: ["MERN Stack", "Full-Stack Development", "Agile Methodologies"],
     },
     {
-      period: "2012 - 2015",
-      title: "Interior Designer",
-      company: "Urban Living Interiors",
+      period: "May 2024 - Jun 2024",
+      title: "React Developer Intern",
+      company: "RDL Technologies",
       description:
-        "Designed residential spaces with a focus on urban apartments and lofts. Created detailed design presentations and material specifications.",
-      tags: ["Urban Spaces", "Space Planning", "Material Selection"],
-    },
-    {
-      period: "2010 - 2012",
-      title: "Junior Designer",
-      company: "Elite Design Associates",
-      description:
-        "Assisted senior designers with project research, material sourcing, and client presentations. Developed CAD drawings and 3D visualizations.",
-      tags: ["CAD", "3D Visualization", "Research"],
+        "Worked on building user interfaces using React.js. Collaborated with designers to implement responsive and interactive web components.",
+      tags: ["React.js", "UI Development", "Responsive Design"],
     },
   ];
 
@@ -68,7 +60,7 @@ export function Experience() {
           <h2 className="text-3xl md:text-4xl font-bold">Professional Experience</h2>
           <div className="mt-2 h-1 w-20 bg-gray-400 mx-auto"></div>
           <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
-            My career journey in the world of interior design.
+            My career journey in the world of web development.
           </p>
         </div>
 

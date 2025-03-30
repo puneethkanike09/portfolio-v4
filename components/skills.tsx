@@ -1,50 +1,50 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Brush, Lightbulb, Ruler, Palette, Home, Building2, Sofa, Lamp } from "lucide-react"
-import SpotlightCard from "./animations/SpotlightCard"
+import { Card, CardContent } from "@/components/ui/card";
+import { Code, Database, Globe, Layers, Terminal, FileCode, Palette, Monitor } from "lucide-react";
+import SpotlightCard from "./animations/SpotlightCard";
 
 export function Skills() {
   const skills = [
     {
-      icon: <Brush className="h-10 w-10 text-primary" />,
-      title: "Interior Styling",
-      description: "Expert arrangement of furniture, accessories, and decor to create cohesive, beautiful spaces.",
+      icon: <Code className="h-10 w-10 text-primary" aria-label="JavaScript Icon" />,
+      title: "JavaScript (ES6+)",
+      description: "Proficient in modern JavaScript development, including ES6+ features.",
     },
     {
-      icon: <Lightbulb className="h-10 w-10 text-primary" />,
-      title: "Lighting Design",
-      description: "Strategic lighting plans that enhance ambiance, functionality, and aesthetic appeal.",
+      icon: <Globe className="h-10 w-10 text-primary" aria-label="Next.js Icon" />,
+      title: "Next.js",
+      description: "Experienced in building server-side rendered React applications with Next.js.",
     },
     {
-      icon: <Ruler className="h-10 w-10 text-primary" />,
-      title: "Space Planning",
-      description: "Optimizing layout and flow to maximize functionality and comfort in any space.",
+      icon: <Layers className="h-10 w-10 text-primary" aria-label="React Icon" />,
+      title: "React",
+      description: "Skilled in creating dynamic and interactive user interfaces with React.",
     },
     {
-      icon: <Palette className="h-10 w-10 text-primary" />,
-      title: "Color Consultation",
-      description: "Expert color selection to create the desired mood and complement existing elements.",
+      icon: <Terminal className="h-10 w-10 text-primary" aria-label="Node.js Icon" />,
+      title: "Node.js",
+      description: "Experience with server-side development using Node.js.",
     },
     {
-      icon: <Home className="h-10 w-10 text-primary" />,
-      title: "Residential Design",
-      description: "Creating beautiful, functional homes that reflect the personality and lifestyle of their owners.",
+      icon: <FileCode className="h-10 w-10 text-primary" aria-label="TypeScript Icon" />,
+      title: "TypeScript",
+      description: "Proficient in using TypeScript for statically typed JavaScript development.",
     },
     {
-      icon: <Building2 className="h-10 w-10 text-primary" />,
-      title: "Commercial Design",
-      description: "Functional, brand-aligned spaces for businesses that enhance productivity and customer experience.",
+      icon: <Monitor className="h-10 w-10 text-primary" aria-label="Angular Icon" />,
+      title: "Angular",
+      description: "Experienced in building robust web applications using the Angular framework.",
     },
     {
-      icon: <Sofa className="h-10 w-10 text-primary" />,
-      title: "Furniture Selection",
-      description: "Sourcing and selecting the perfect pieces to complement your space and meet your needs.",
+      icon: <Database className="h-10 w-10 text-primary" aria-label="MongoDB Icon" />,
+      title: "MongoDB",
+      description: "Skilled in designing and managing NoSQL databases with MongoDB.",
     },
     {
-      icon: <Lamp className="h-10 w-10 text-primary" />,
-      title: "Accessory Curation",
-      description: "Selecting the finishing touches that bring personality and cohesion to your space.",
+      icon: <Palette className="h-10 w-10 text-primary" aria-label="Tailwind CSS Icon" />,
+      title: "Tailwind CSS",
+      description: "Proficient in using Tailwind CSS for utility-first CSS styling.",
     },
-  ]
+  ];
 
   return (
     <section id="skills" className="xl:min-h-screen flex items-center py-20">
@@ -53,7 +53,7 @@ export function Skills() {
           <h2 className="text-3xl md:text-4xl font-bold">My Skills</h2>
           <div className="mt-2 h-1 w-20 bg-primary mx-auto"></div>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-            With expertise across various aspects of interior design, I bring a comprehensive approach to every project.
+            With expertise in various web development technologies, I bring a comprehensive approach to every project.
           </p>
         </div>
 
@@ -78,5 +78,5 @@ export function Skills() {
         </div>
       </div>
     </section>
-  )
+  );
 }

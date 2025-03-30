@@ -142,7 +142,7 @@ export function Sidebar() {
           <div className="flex flex-col h-full pt-20 pb-6">
             <div className="px-6 mb-8">
               <Link href="/" className="text-xl font-bold text-white">
-                INTERIOR<span className="text-gray-500">STUDIO</span>
+                Puneeth<span className="text-gray-500">Kanike</span>
               </Link>
             </div>
             <nav className="flex-1 px-6">
@@ -168,7 +168,7 @@ export function Sidebar() {
               </ul>
             </nav>
             <div className="px-6 mt-auto">
-              <p className="text-sm text-white/60">© {new Date().getFullYear()} Interior Studio</p>
+              <p className="text-sm text-white/60">© {new Date().getFullYear()} Puneeth K</p>
             </div>
           </div>
         </div>
