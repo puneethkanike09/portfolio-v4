@@ -27,7 +27,7 @@ export default function RootLayout({
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://puneeth-portfolio.vercel.app/" />
         <meta property="og:title" content="Puneeth K Portfolio" />
-        <meta property="og:description" content="Puneeth K portfolio showcasing software engineering skills" />
+        <meta property="og:description" content="Software Engineer" />
         <meta property="og:image" content="https://puneeth-portfolio.vercel.app/images/about/meta.png" />
 
         {/* Twitter Card Tags */}
