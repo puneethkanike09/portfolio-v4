@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Shaikh unaiz portfolio',
-  description: 'Shaikh unaiz portfolio',
+  title: 'Puneeth K Portfolio',
+  description: 'Puneeth K portfolio',
   generator: 'puneeth-software-engineer',
 }
 

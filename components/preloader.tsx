@@ -40,10 +40,9 @@ export function Preloader() {
         <div className="absolute inset-0 border-4 border-primary rounded-full animate-[spin_3s_linear_infinite]"></div>
         <div className="absolute inset-2 border-4 border-gray-400 rounded-full animate-[spin_2s_linear_infinite_reverse]"></div>
         <div className="absolute inset-4 border-4 border-primary/70 rounded-full animate-[spin_4s_linear_infinite]"></div>
-        <div className="absolute inset-0 m-auto w-20 h-20 flex items-center justify-center">
-          <span className="text-xl font-bold text-gray-100">
-            Shaikh<span className="text-gray-500">Unaiz</span>
-          </span>
+        <div className="absolute inset-0 m-auto w-20 h-20 flex flex-col items-center justify-center text-center">
+          <span className="text-xl font-bold text-gray-100">Puneeth</span>
+          <span className="text-lg text-gray-500">Kanike</span>
         </div>
       </div>
 
@@ -56,4 +55,3 @@ export function Preloader() {
     </div>
   )
 }
-
