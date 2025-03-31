@@ -24,10 +24,10 @@ export function Education() {
     <section id="education" className="xl:min-h-screen flex items-center py-20">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold">Education & Certifications</h2>
+          <h2 className="text-3xl md:text-4xl font-bold">Education</h2>
           <div className="mt-2 h-1 w-20 bg-primary mx-auto"></div>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-            My academic background and professional certifications in computer applications.
+            My academic background in computer applications.
           </p>
         </div>
 
