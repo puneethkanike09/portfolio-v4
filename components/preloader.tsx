@@ -1,29 +1,34 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 
 export function Preloader() {
   const [loading, setLoading] = useState(true)
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
-    // Simulate loading progress
+    // Start with body overflow hidden
+    document.body.style.overflow = "hidden"
+
+    // Smooth progress animation
     const interval = setInterval(() => {
       setProgress((prev) => {
-        const newProgress = prev + (100 - prev) / 20
-        return Math.min(newProgress, 100)
+        if (prev >= 100) {
+          clearInterval(interval)
+          return 100
+        }
+        return prev + (100 - prev) / 20
       })
     }, 100)
 
-    // Set timeout to hide preloader after 5 seconds
+    // Cleanup timeout
     const timeout = setTimeout(() => {
       setLoading(false)
       document.body.style.overflow = ""
-    }, 5000)
+    }, 4000)
 
-    // Prevent scrolling during preloader
-    document.body.style.overflow = "hidden"
-
+    // Cleanup function
     return () => {
       clearInterval(interval)
       clearTimeout(timeout)
@@ -34,24 +39,54 @@ export function Preloader() {
   if (!loading) return null
 
   return (
-    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black">
-      <div className="relative w-40 h-40 mb-8">
-        {/* Animated elements */}
-        <div className="absolute inset-0 border-4 border-primary rounded-full animate-[spin_3s_linear_infinite]"></div>
-        <div className="absolute inset-2 border-4 border-gray-400 rounded-full animate-[spin_2s_linear_infinite_reverse]"></div>
-        <div className="absolute inset-4 border-4 border-primary/70 rounded-full animate-[spin_4s_linear_infinite]"></div>
-        <div className="absolute inset-0 m-auto w-20 h-20 flex flex-col items-center justify-center text-center">
-          <span className="text-xl font-bold text-gray-100">Puneeth</span>
-          <span className="text-lg text-gray-500">Kanike</span>
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-gray-900 transition-opacity duration-500 ease-in-out">
+      <div className="flex flex-col items-center justify-center">
+        {/* Logo Container */}
+        <div className="relative w-48 h-48 mb-6">
+          <Image
+            src="/logo.png"
+            alt="Loading Logo"
+            fill
+            sizes="192px"
+            className="object-contain animate-pulse"
+            priority
+            quality={100}
+          />
+          {/* Glow effect */}
+          <div className="absolute inset-0 bg-blue-500/20 rounded-full animate-pulse blur-xl" />
         </div>
-      </div>
 
-      {/* Progress bar */}
-      <div className="w-64 h-1 bg-gray-700 rounded-full overflow-hidden">
-        <div className="h-full bg-primary transition-all duration-300 ease-out" style={{ width: `${progress}%` }}></div>
-      </div>
+        {/* Progress Circle */}
+        <div className="relative w-56 h-56 -mt-52 mb-4">
+          <svg className="w-full h-full" viewBox="0 0 100 100">
+            <circle
+              className="text-gray-700"
+              strokeWidth="2"
+              cx="50"
+              cy="50"
+              r="40"
+              fill="transparent"
+            />
+            <circle
+              className="text-blue-500 transition-all duration-300 ease-out"
+              strokeWidth="2"
+              strokeLinecap="round"
+              cx="50"
+              cy="50"
+              r="40"
+              fill="transparent"
+              strokeDasharray="251.2"
+              strokeDashoffset={251.2 - (251.2 * progress) / 100}
+              transform="rotate(-90 50 50)"
+            />
+          </svg>
+        </div>
 
-      <p className="mt-4 text-gray-300 text-sm">Loading Experience...</p>
+        {/* Loading Text */}
+        <p className="mt-4 text-gray-300 text-lg font-medium opacity-0 animate-[fadeIn_1s_ease-in_forwards]">
+          Preparing Your Experience...
+        </p>
+      </div>
     </div>
   )
 }
