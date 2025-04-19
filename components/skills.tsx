@@ -62,7 +62,7 @@ export function Skills() {
             <SpotlightCard
               key={index}
               className="custom-spotlight-card"
-              spotlightColor="rgba(128, 128, 128, 0.5)"
+              spotlightColor="white"
             >
               <Card className="border-none shadow-md hover:shadow-lg transition-shadow h-full">
                 <CardContent className="pt-6">

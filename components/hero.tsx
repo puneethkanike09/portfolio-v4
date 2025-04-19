@@ -66,7 +66,7 @@ export function Hero() {
             <div className="p-4 text-sm text-gray-300 h-[calc(100%-36px)] overflow-y-auto custom-scrollbar">
               <div className="flex">
                 <div className="select-none text-gray-500 pr-4 text-right min-w-[40px]">
-                  {Array.from({ length: 32 }, (_, i) => (
+                  {Array.from({ length: 33 }, (_, i) => (
                     <div key={i}>{i + 1}</div>
                   ))}
                 </div>

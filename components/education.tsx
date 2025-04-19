@@ -36,7 +36,7 @@ export function Education() {
             <SpotlightCard
               key={index}
               className="custom-spotlight-card"
-              spotlightColor="rgba(128, 128, 128, 0.5)" // Changed from black to medium gray
+              spotlightColor="white" // Changed from black to medium gray
             >
               <Card className="border-none shadow-md hover:shadow-lg transition-shadow h-full">
                 <CardContent className="p-6">
