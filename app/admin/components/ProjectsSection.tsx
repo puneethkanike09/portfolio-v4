@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
 import FileUploader from './FileUploader';
 import { useTheme } from '@/contexts/ThemeContext';
@@ -331,13 +329,7 @@ export default function ProjectsSection() {
                         <div className="mb-2">
                             <label className={labelClasses}>Main Image</label>
                             <div className="flex items-center space-x-2">
-                                <input
-                                    type="text"
-                                    value={project.image}
-                                    onChange={(e) => handleProjectChange(index, 'image', e.target.value)}
-                                    className={inputClasses}
-                                    required
-                                />
+
                                 <FileUploader
                                     onUploadComplete={(url) => handleImageUpload(url, index, 'image')}
                                     accept="image/*"
@@ -345,15 +337,7 @@ export default function ProjectsSection() {
                                     currentValue={project.image}
                                 />
                             </div>
-                            {project.image && (
-                                <div className="mt-2">
-                                    <img
-                                        src={project.image}
-                                        alt="Preview"
-                                        className="h-24 w-auto object-cover rounded"
-                                    />
-                                </div>
-                            )}
+                            {/* Removed redundant preview since FileUploader has its own preview */}
                         </div>
 
                         <div className="mb-2">
@@ -369,13 +353,7 @@ export default function ProjectsSection() {
                             </div>
                             {(project.images || []).map((image, imageIndex) => (
                                 <div key={imageIndex} className="flex items-center mb-2">
-                                    <input
-                                        type="text"
-                                        value={image}
-                                        onChange={(e) => handleImageChange(index, imageIndex, e.target.value)}
-                                        className={inputClasses}
-                                        required
-                                    />
+
                                     <FileUploader
                                         onUploadComplete={(url) => handleImageUpload(url, index, 'images', imageIndex)}
                                         accept="image/*"

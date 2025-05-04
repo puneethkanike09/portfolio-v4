@@ -89,6 +89,11 @@ export default function ContactSection() {
         }
     };
 
+    const smallButtonClasses = `${theme === 'dark'
+        ? 'bg-blue-600 hover:bg-blue-700'
+        : 'bg-blue-500 hover:bg-blue-600'
+        } text-white font-bold py-1 px-2 rounded text-xs`;
+
     const inputClasses = `shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark'
         ? 'bg-gray-700 border-gray-600 text-white'
         : 'bg-white border-gray-300 text-gray-700'
@@ -115,7 +120,17 @@ export default function ContactSection() {
             </div>
 
             <div className="mb-4">
-                <label className={labelClasses}>Rotating Texts</label>
+                <div className="flex justify-between items-center mb-1">
+                    <label className={labelClasses}>Rotating Texts</label>
+                    <button
+                        type="button"
+                        onClick={addRotatingText}
+                        className={smallButtonClasses}
+                    >
+                        Add text
+                    </button>
+                </div>
+
                 {contactData.rotatingTexts.map((text, index) => (
                     <div key={index} className="flex items-center space-x-2 mb-2">
                         <input
@@ -136,13 +151,7 @@ export default function ContactSection() {
                         </button>
                     </div>
                 ))}
-                <button
-                    type="button"
-                    onClick={addRotatingText}
-                    className="text-blue-500 hover:text-blue-700 mt-2"
-                >
-                    Add Rotating Text
-                </button>
+
             </div>
 
             {message && (

@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from '@/contexts/ThemeContext';
+import FileUploader from './FileUploader';
 
 interface AboutData {
     name: string;
@@ -23,8 +24,6 @@ export default function AboutSection() {
     });
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState('');
-    const [uploadingImage, setUploadingImage] = useState(false);
-    const fileInputRef = useRef<HTMLInputElement>(null);
     const { theme } = useTheme();
 
     useEffect(() => {
@@ -51,38 +50,13 @@ export default function AboutSection() {
         }));
     };
 
-    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-
-        setUploadingImage(true);
-
-        try {
-            const formData = new FormData();
-            formData.append('file', file);
-
-            const response = await fetch('/api/upload', {
-                method: 'POST',
-                body: formData,
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                setAboutData(prev => ({
-                    ...prev,
-                    imageUrl: data.url
-                }));
-                setMessage('Image uploaded successfully!');
-                setTimeout(() => setMessage(''), 3000);
-            } else {
-                setMessage('Failed to upload image.');
-            }
-        } catch (error) {
-            console.error('Upload error:', error);
-            setMessage('An error occurred while uploading.');
-        } finally {
-            setUploadingImage(false);
-        }
+    const handleImageUpload = (url: string) => {
+        setAboutData(prev => ({
+            ...prev,
+            imageUrl: url
+        }));
+        setMessage('Image uploaded successfully!');
+        setTimeout(() => setMessage(''), 3000);
     };
 
     const handleAboutSubmit = async (e: React.FormEvent) => {
@@ -201,44 +175,14 @@ export default function AboutSection() {
                         Profile Image
                     </label>
                     <div className="flex items-center space-x-4">
-                        <input
-                            type="text"
-                            id="imageUrl"
-                            name="imageUrl"
-                            value={aboutData.imageUrl}
-                            onChange={handleAboutInputChange}
-                            className={inputClasses}
-                            required
-                        />
-                        <button
-                            type="button"
-                            onClick={() => fileInputRef.current?.click()}
-                            className={`${theme === 'dark'
-                                ? 'bg-gray-600 hover:bg-gray-500 text-white'
-                                : 'bg-gray-200 hover:bg-gray-300 text-gray-800'
-                                } font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
-                            disabled={uploadingImage}
-                        >
-                            {uploadingImage ? 'Uploading...' : 'Upload'}
-                        </button>
-                        <input
-                            ref={fileInputRef}
-                            type="file"
-                            id="imageUpload"
+                        <FileUploader
+                            onUploadComplete={handleImageUpload}
                             accept="image/*"
-                            className="hidden"
-                            onChange={handleImageUpload}
+                            label="Upload"
+                            currentValue={aboutData.imageUrl}
                         />
                     </div>
-                    {aboutData.imageUrl && (
-                        <div className="mt-2">
-                            <img
-                                src={aboutData.imageUrl}
-                                alt="Preview"
-                                className="h-24 w-auto object-cover rounded"
-                            />
-                        </div>
-                    )}
+
                 </div>
             </div>
 

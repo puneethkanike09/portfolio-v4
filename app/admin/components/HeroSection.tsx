@@ -149,15 +149,7 @@ export default function HeroSection() {
                         Resume URL
                     </label>
                     <div className="flex flex-col space-y-2">
-                        <input
-                            type="text"
-                            id="resumeUrl"
-                            name="resumeUrl"
-                            value={heroData.resumeUrl}
-                            onChange={handleHeroInputChange}
-                            className={inputClasses}
-                            required
-                        />
+
                         <FileUploader
                             onUploadComplete={handleResumeUpload}
                             accept=".pdf,.doc,.docx"
@@ -167,7 +159,7 @@ export default function HeroSection() {
                     </div>
                 </div>
 
-                <div className="mb-4">
+                {/* <div className="mb-4">
                     <label className={labelClasses} htmlFor="borderColor">
                         Border Color
                     </label>
@@ -233,7 +225,7 @@ export default function HeroSection() {
                         max="5"
                         step="0.1"
                     />
-                </div>
+                </div> */}
             </div>
 
             {message && (
