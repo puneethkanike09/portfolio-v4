@@ -18,7 +18,8 @@ import {
     Menu,
     X,
     Sun,
-    Moon
+    Moon,
+    Mail,
 } from 'lucide-react';
 
 import HeroSection from './components/HeroSection';
@@ -29,6 +30,7 @@ import ExperienceSection from './components/ExperienceSection';
 import EducationSection from './components/EducationSection';
 import FooterSection from './components/FooterSection';
 import PasswordSection from './components/PasswordSection';
+import ContactSection from './components/ContactSection';
 import { ThemeProvider, useTheme } from '@/contexts/ThemeContext';
 
 function AdminDashboard() {
@@ -66,6 +68,8 @@ function AdminDashboard() {
                 return <FooterSection />;
             case 'password':
                 return <PasswordSection />;
+            case 'contact':
+                return <ContactSection />;
             default:
                 return <HeroSection />;
         }
@@ -87,6 +91,8 @@ function AdminDashboard() {
                 return <GraduationCap size={20} />;
             case 'password':
                 return <KeyRound size={20} />;
+            case 'contact':
+                return <Mail size={20} />;
             default:
                 return <Home size={20} />;
         }
@@ -106,7 +112,7 @@ function AdminDashboard() {
                     </button>
                 </div>
                 <div className="mt-6 flex-1">
-                    {['hero', 'about', 'skills', 'projects', 'experience', 'education', 'footer', 'password'].map((tab) => (
+                    {['hero', 'about', 'skills', 'experience', 'education', 'projects', 'contact', 'footer', 'password',].map((tab) => (
                         <button
                             key={tab}
                             className={`flex items-center w-full py-3 px-4 ${activeTab === tab
@@ -129,7 +135,6 @@ function AdminDashboard() {
                         {sidebarOpen && <span>Logout</span>}
                     </button>
                 </div>
-
             </div>
 
             {/* Main content */}
@@ -171,7 +176,7 @@ function AdminDashboard() {
                 {/* Footer */}
                 <footer className={`${theme === 'dark' ? 'bg-gray-800 border-t border-gray-700' : 'bg-white border-t'} p-4`}>
                     <div className={`text-center text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                        Portfolio Admin Dashboard © {new Date().getFullYear()}
+                        Made with 💙 by Puneeth
                     </div>
                 </footer>
             </div>

@@ -53,7 +53,7 @@ export function SmoothCursor() {
                 target?.closest("button");
 
             if (isLinkOrButton) {
-                console.log("Hover detected on:", target); // Debug log
+
                 setLinkHovered(true);
             }
         }
@@ -121,7 +121,7 @@ export function SmoothCursor() {
             <div
                 ref={cursorRef}
                 className={`fixed pointer-events-none z-[9999] rounded-full mix-blend-difference ${visible ? "opacity-100" : "opacity-0"
-                    } ${clicked ? "scale-90" : ""} ${linkHovered ? "scale-150 animate-pulse" : ""}`}
+                    }`}
                 style={{
                     width: "16px",
                     height: "16px",
@@ -133,7 +133,7 @@ export function SmoothCursor() {
             <div
                 ref={cursorOuterRef}
                 className={`fixed pointer-events-none z-[9999] rounded-full mix-blend-difference ${visible ? "opacity-100" : "opacity-0"
-                    } ${linkHovered ? "animate-spin-slow" : ""}`}
+                    }s`}
                 style={{
                     width: "30px",
                     height: "30px",
@@ -142,36 +142,7 @@ export function SmoothCursor() {
                     transition: "opacity 0.3s ease-out",
                 }}
             />
-            <style jsx>{`
-                @keyframes pulse {
-                    0% {
-                        transform: translate(-50%, -50%) scale(1.5);
-                    }
-                    50% {
-                        transform: translate(-50%, -50%) scale(1.3);
-                    }
-                    100% {
-                        transform: translate(-50%, -50%) scale(1.5);
-                    }
-                }
 
-                @keyframes spin-slow {
-                    0% {
-                        transform: translate(-50%, -50%) rotate(0deg);
-                    }
-                    100% {
-                        transform: translate(-50%, -50%) rotate(360deg);
-                    }
-                }
-
-                .animate-pulse {
-                    animation: pulse 0.6s infinite;
-                }
-
-                .animate-spin-slow {
-                    animation: spin-slow 2s linear infinite;
-                }
-            `}</style>
         </>
     )
 }

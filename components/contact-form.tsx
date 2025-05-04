@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,9 +8,32 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import RotatingText from "./animations/RotatingText"; // Adjust path as needed
 
+interface ContactData {
+  rotatingTexts: string[];
+  formActionUrl: string;
+}
+
 export function ContactForm() {
+  const [contactData, setContactData] = useState<ContactData>({
+    rotatingTexts: ['Hiring', 'Web Development'],
+    formActionUrl: 'https://formspree.io/f/mwpejavr',
+  });
 
+  useEffect(() => {
+    const fetchContactData = async () => {
+      try {
+        const response = await fetch('/api/contact');
+        if (response.ok) {
+          const data = await response.json();
+          setContactData(data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch contact data:', error);
+      }
+    };
 
+    fetchContactData();
+  }, []);
 
   return (
     <section id="contact" className="xl:min-h-screen flex items-center py-20">
@@ -24,7 +47,7 @@ export function ContactForm() {
             </div>
             <div>
               <RotatingText
-                texts={["Hiring", "Web Development"]}
+                texts={contactData.rotatingTexts}
                 mainClassName="inline-flex px-2 sm:px-3 md:px-4 bg-black text-white py-1 sm:py-2 md:py-2 justify-center rounded-lg items-center min-h-[2rem]"
                 staggerFrom="last"
                 initial={{ y: "100%", opacity: 0 }}
@@ -37,16 +60,13 @@ export function ContactForm() {
                 rotationInterval={3000}
               />
             </div>
-
-
           </div>
         </div>
 
         <div className="max-w-2xl mx-auto">
-          <Card className="border-none ">
+          <Card className="border-none">
             <CardContent className="p-6">
-
-              <form action="https://formspree.io/f/mwpejavr" method='post' className="space-y-6">
+              <form action={contactData.formActionUrl} method="post" className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-sm font-medium block">
@@ -57,8 +77,6 @@ export function ContactForm() {
                       name="name"
                       id="name"
                       placeholder="Your Name"
-
-
                       required
                     />
                   </div>
@@ -71,7 +89,6 @@ export function ContactForm() {
                       name="email"
                       placeholder="Your Email"
                       id="email"
-
                       required
                     />
                   </div>
@@ -91,7 +108,6 @@ export function ContactForm() {
                   Send Message
                 </Button>
               </form>
-
             </CardContent>
           </Card>
         </div>
