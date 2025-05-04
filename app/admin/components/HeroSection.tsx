@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import FileUploader from './FileUploader';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface HeroData {
     name: string;
@@ -27,6 +28,7 @@ export default function HeroSection() {
     });
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState('');
+    const { theme } = useTheme();
 
     useEffect(() => {
         const fetchHeroData = async () => {
@@ -87,10 +89,18 @@ export default function HeroSection() {
         setTimeout(() => setMessage(''), 3000);
     };
 
+    const inputClasses = `shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark'
+        ? 'bg-gray-700 border-gray-600 text-white'
+        : 'bg-white border-gray-300 text-gray-700'
+        } leading-tight focus:outline-none focus:shadow-outline`;
+
+    const labelClasses = `block ${theme === 'dark' ? 'text-white' : 'text-gray-700'
+        } text-sm font-bold mb-2`;
+
     return (
         <form onSubmit={handleHeroSubmit}>
             <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                <label className={labelClasses} htmlFor="name">
                     Name
                 </label>
                 <input
@@ -99,13 +109,13 @@ export default function HeroSection() {
                     name="name"
                     value={heroData.name}
                     onChange={handleHeroInputChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className={inputClasses}
                     required
                 />
             </div>
 
             <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="mainPhrase">
+                <label className={labelClasses} htmlFor="mainPhrase">
                     Main Phrase
                 </label>
                 <input
@@ -114,13 +124,13 @@ export default function HeroSection() {
                     name="mainPhrase"
                     value={heroData.mainPhrase}
                     onChange={handleHeroInputChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className={inputClasses}
                     required
                 />
             </div>
 
             <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+                <label className={labelClasses} htmlFor="description">
                     Description
                 </label>
                 <textarea
@@ -128,14 +138,14 @@ export default function HeroSection() {
                     name="description"
                     value={heroData.description}
                     onChange={handleHeroInputChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32"
+                    className={`${inputClasses} h-32`}
                     required
                 />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="resumeUrl">
+                    <label className={labelClasses} htmlFor="resumeUrl">
                         Resume URL
                     </label>
                     <div className="flex flex-col space-y-2">
@@ -145,7 +155,7 @@ export default function HeroSection() {
                             name="resumeUrl"
                             value={heroData.resumeUrl}
                             onChange={handleHeroInputChange}
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className={inputClasses}
                             required
                         />
                         <FileUploader
@@ -158,7 +168,7 @@ export default function HeroSection() {
                 </div>
 
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="borderColor">
+                    <label className={labelClasses} htmlFor="borderColor">
                         Border Color
                     </label>
                     <input
@@ -167,13 +177,13 @@ export default function HeroSection() {
                         name="borderColor"
                         value={heroData.borderColor}
                         onChange={handleHeroInputChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className={inputClasses}
                         required
                     />
                 </div>
 
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="blurAmount">
+                    <label className={labelClasses} htmlFor="blurAmount">
                         Blur Amount
                     </label>
                     <input
@@ -182,7 +192,7 @@ export default function HeroSection() {
                         name="blurAmount"
                         value={heroData.blurAmount}
                         onChange={handleHeroInputChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className={inputClasses}
                         required
                         min="1"
                         max="20"
@@ -190,7 +200,7 @@ export default function HeroSection() {
                 </div>
 
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="animationDuration">
+                    <label className={labelClasses} htmlFor="animationDuration">
                         Animation Duration (seconds)
                     </label>
                     <input
@@ -199,7 +209,7 @@ export default function HeroSection() {
                         name="animationDuration"
                         value={heroData.animationDuration}
                         onChange={handleHeroInputChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className={inputClasses}
                         required
                         min="0.5"
                         max="10"
@@ -208,7 +218,7 @@ export default function HeroSection() {
                 </div>
 
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="pauseBetweenAnimations">
+                    <label className={labelClasses} htmlFor="pauseBetweenAnimations">
                         Pause Between Animations (seconds)
                     </label>
                     <input
@@ -217,7 +227,7 @@ export default function HeroSection() {
                         name="pauseBetweenAnimations"
                         value={heroData.pauseBetweenAnimations}
                         onChange={handleHeroInputChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className={inputClasses}
                         required
                         min="0"
                         max="5"
@@ -227,7 +237,10 @@ export default function HeroSection() {
             </div>
 
             {message && (
-                <div className={`mb-4 p-3 rounded ${message.includes('success') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                <div className={`mb-4 p-3 rounded ${message.includes('success')
+                    ? theme === 'dark' ? 'bg-green-800 text-green-100' : 'bg-green-100 text-green-700'
+                    : theme === 'dark' ? 'bg-red-800 text-red-100' : 'bg-red-100 text-red-700'
+                    }`}>
                     {message}
                 </div>
             )}
@@ -235,7 +248,10 @@ export default function HeroSection() {
             <div className="flex justify-end">
                 <button
                     type="submit"
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className={`${theme === 'dark'
+                        ? 'bg-blue-600 hover:bg-blue-700'
+                        : 'bg-blue-500 hover:bg-blue-600'
+                        } text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
                     disabled={isLoading}
                 >
                     {isLoading ? 'Saving...' : 'Save Changes'}

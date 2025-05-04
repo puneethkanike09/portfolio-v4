@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface AboutData {
     name: string;
@@ -24,6 +25,7 @@ export default function AboutSection() {
     const [message, setMessage] = useState('');
     const [uploadingImage, setUploadingImage] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const { theme } = useTheme();
 
     useEffect(() => {
         const fetchAboutData = async () => {
@@ -109,10 +111,18 @@ export default function AboutSection() {
         }
     };
 
+    const inputClasses = `shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark'
+        ? 'bg-gray-700 border-gray-600 text-white'
+        : 'bg-white border-gray-300 text-gray-700'
+        } leading-tight focus:outline-none focus:shadow-outline`;
+
+    const labelClasses = `block ${theme === 'dark' ? 'text-white' : 'text-gray-700'
+        } text-sm font-bold mb-2`;
+
     return (
         <form onSubmit={handleAboutSubmit}>
             <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                <label className={labelClasses} htmlFor="name">
                     Name
                 </label>
                 <input
@@ -121,13 +131,13 @@ export default function AboutSection() {
                     name="name"
                     value={aboutData.name}
                     onChange={handleAboutInputChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className={inputClasses}
                     required
                 />
             </div>
 
             <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+                <label className={labelClasses} htmlFor="description">
                     Description
                 </label>
                 <textarea
@@ -135,14 +145,14 @@ export default function AboutSection() {
                     name="description"
                     value={aboutData.description}
                     onChange={handleAboutInputChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32"
+                    className={`${inputClasses} h-32`}
                     required
                 />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">
+                    <label className={labelClasses} htmlFor="location">
                         Location
                     </label>
                     <input
@@ -151,13 +161,13 @@ export default function AboutSection() {
                         name="location"
                         value={aboutData.location}
                         onChange={handleAboutInputChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className={inputClasses}
                         required
                     />
                 </div>
 
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                    <label className={labelClasses} htmlFor="email">
                         Email
                     </label>
                     <input
@@ -166,13 +176,13 @@ export default function AboutSection() {
                         name="email"
                         value={aboutData.email}
                         onChange={handleAboutInputChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className={inputClasses}
                         required
                     />
                 </div>
 
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="experience">
+                    <label className={labelClasses} htmlFor="experience">
                         Experience
                     </label>
                     <input
@@ -181,13 +191,13 @@ export default function AboutSection() {
                         name="experience"
                         value={aboutData.experience}
                         onChange={handleAboutInputChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className={inputClasses}
                         required
                     />
                 </div>
 
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="imageUpload">
+                    <label className={labelClasses} htmlFor="imageUpload">
                         Profile Image
                     </label>
                     <div className="flex items-center space-x-4">
@@ -197,13 +207,16 @@ export default function AboutSection() {
                             name="imageUrl"
                             value={aboutData.imageUrl}
                             onChange={handleAboutInputChange}
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className={inputClasses}
                             required
                         />
                         <button
                             type="button"
                             onClick={() => fileInputRef.current?.click()}
-                            className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            className={`${theme === 'dark'
+                                ? 'bg-gray-600 hover:bg-gray-500 text-white'
+                                : 'bg-gray-200 hover:bg-gray-300 text-gray-800'
+                                } font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
                             disabled={uploadingImage}
                         >
                             {uploadingImage ? 'Uploading...' : 'Upload'}
@@ -230,7 +243,10 @@ export default function AboutSection() {
             </div>
 
             {message && (
-                <div className={`mb-4 p-3 rounded ${message.includes('success') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                <div className={`mb-4 p-3 rounded ${message.includes('success')
+                    ? theme === 'dark' ? 'bg-green-800 text-green-100' : 'bg-green-100 text-green-700'
+                    : theme === 'dark' ? 'bg-red-800 text-red-100' : 'bg-red-100 text-red-700'
+                    }`}>
                     {message}
                 </div>
             )}
@@ -238,7 +254,10 @@ export default function AboutSection() {
             <div className="flex justify-end">
                 <button
                     type="submit"
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className={`${theme === 'dark'
+                        ? 'bg-blue-600 hover:bg-blue-700'
+                        : 'bg-blue-500 hover:bg-blue-600'
+                        } text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
                     disabled={isLoading}
                 >
                     {isLoading ? 'Saving...' : 'Save Changes'}

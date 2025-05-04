@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import FileUploader from './FileUploader';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface ProjectItem {
     id: number;
@@ -211,10 +212,30 @@ export default function ProjectsSection() {
         }
     };
 
+    const { theme } = useTheme();
+
+    const inputClasses = `shadow appearance-none border rounded w-full py-2 px-3 ${theme === 'dark'
+        ? 'bg-gray-700 border-gray-600 text-white'
+        : 'bg-white border-gray-300 text-gray-700'
+        } leading-tight focus:outline-none focus:shadow-outline`;
+
+    const labelClasses = `block ${theme === 'dark' ? 'text-white' : 'text-gray-700'
+        } text-sm font-bold mb-2`;
+
+    const buttonClasses = `${theme === 'dark'
+        ? 'bg-blue-600 hover:bg-blue-700'
+        : 'bg-blue-500 hover:bg-blue-600'
+        } text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`;
+
+    const smallButtonClasses = `${theme === 'dark'
+        ? 'bg-blue-600 hover:bg-blue-700'
+        : 'bg-blue-500 hover:bg-blue-600'
+        } text-white font-bold py-1 px-2 rounded text-xs`;
+
     return (
         <form onSubmit={handleSubmit}>
             <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="sectionTitle">
+                <label className={labelClasses} htmlFor="sectionTitle">
                     Section Title
                 </label>
                 <input
@@ -223,13 +244,13 @@ export default function ProjectsSection() {
                     name="sectionTitle"
                     value={projectData.sectionTitle}
                     onChange={handleInputChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className={inputClasses}
                     required
                 />
             </div>
 
             <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="sectionDescription">
+                <label className={labelClasses} htmlFor="sectionDescription">
                     Section Description
                 </label>
                 <textarea
@@ -237,31 +258,37 @@ export default function ProjectsSection() {
                     name="sectionDescription"
                     value={projectData.sectionDescription}
                     onChange={handleInputChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32"
+                    className={`${inputClasses} h-32`}
                     required
                 />
             </div>
 
             <div className="mb-4">
                 <div className="flex justify-between items-center mb-2">
-                    <label className="block text-gray-700 text-sm font-bold">Projects</label>
+                    <label className={labelClasses}>Projects</label>
                     <button
                         type="button"
                         onClick={addProject}
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-sm"
+                        className={buttonClasses}
                     >
                         Add Project
                     </button>
                 </div>
 
                 {projectData.projects.map((project, index) => (
-                    <div key={index} className="border p-4 mb-4 rounded">
+                    <div key={index} className={`border ${theme === 'dark' ? 'border-gray-600 bg-gray-800' : 'border-gray-200 bg-white'
+                        } p-4 mb-4 rounded`}>
                         <div className="flex justify-between mb-2">
-                            <h4 className="font-bold">Project #{index + 1}</h4>
+                            <h4 className={`font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+                                Project #{index + 1}
+                            </h4>
                             <button
                                 type="button"
                                 onClick={() => removeProject(index)}
-                                className="text-red-600 hover:text-red-800"
+                                className={`${theme === 'dark'
+                                    ? 'text-red-400 hover:text-red-300'
+                                    : 'text-red-600 hover:text-red-800'
+                                    }`}
                             >
                                 Remove
                             </button>
@@ -269,54 +296,46 @@ export default function ProjectsSection() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="mb-2">
-                                <label className="block text-gray-700 text-sm font-bold mb-1">
-                                    Title
-                                </label>
+                                <label className={labelClasses}>Title</label>
                                 <input
                                     type="text"
                                     value={project.title}
                                     onChange={(e) => handleProjectChange(index, 'title', e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className={inputClasses}
                                     required
                                 />
                             </div>
 
                             <div className="mb-2">
-                                <label className="block text-gray-700 text-sm font-bold mb-1">
-                                    Category
-                                </label>
+                                <label className={labelClasses}>Category</label>
                                 <input
                                     type="text"
                                     value={project.category}
                                     onChange={(e) => handleProjectChange(index, 'category', e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className={inputClasses}
                                     required
                                 />
                             </div>
                         </div>
 
                         <div className="mb-2">
-                            <label className="block text-gray-700 text-sm font-bold mb-1">
-                                Description
-                            </label>
+                            <label className={labelClasses}>Description</label>
                             <textarea
                                 value={project.description}
                                 onChange={(e) => handleProjectChange(index, 'description', e.target.value)}
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-24"
+                                className={`${inputClasses} h-24`}
                                 required
                             />
                         </div>
 
                         <div className="mb-2">
-                            <label className="block text-gray-700 text-sm font-bold mb-1">
-                                Main Image
-                            </label>
+                            <label className={labelClasses}>Main Image</label>
                             <div className="flex items-center space-x-2">
                                 <input
                                     type="text"
                                     value={project.image}
                                     onChange={(e) => handleProjectChange(index, 'image', e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className={inputClasses}
                                     required
                                 />
                                 <FileUploader
@@ -339,13 +358,11 @@ export default function ProjectsSection() {
 
                         <div className="mb-2">
                             <div className="flex justify-between items-center mb-1">
-                                <label className="block text-gray-700 text-sm font-bold">
-                                    Additional Images
-                                </label>
+                                <label className={labelClasses}>Additional Images</label>
                                 <button
                                     type="button"
                                     onClick={() => addImage(index)}
-                                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-xs"
+                                    className={smallButtonClasses}
                                 >
                                     Add Image
                                 </button>
@@ -356,7 +373,7 @@ export default function ProjectsSection() {
                                         type="text"
                                         value={image}
                                         onChange={(e) => handleImageChange(index, imageIndex, e.target.value)}
-                                        className="shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-2"
+                                        className={inputClasses}
                                         required
                                     />
                                     <FileUploader
@@ -368,7 +385,10 @@ export default function ProjectsSection() {
                                     <button
                                         type="button"
                                         onClick={() => removeImage(index, imageIndex)}
-                                        className="text-red-600 hover:text-red-800 text-sm ml-2"
+                                        className={`${theme === 'dark'
+                                            ? 'text-red-400 hover:text-red-300'
+                                            : 'text-red-600 hover:text-red-800'
+                                            } text-sm ml-2`}
                                     >
                                         Remove
                                     </button>
@@ -378,39 +398,33 @@ export default function ProjectsSection() {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="mb-2">
-                                <label className="block text-gray-700 text-sm font-bold mb-1">
-                                    Website URL
-                                </label>
+                                <label className={labelClasses}>Website URL</label>
                                 <input
                                     type="text"
                                     value={project.websiteUrl}
                                     onChange={(e) => handleProjectChange(index, 'websiteUrl', e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className={inputClasses}
                                 />
                             </div>
 
                             <div className="mb-2">
-                                <label className="block text-gray-700 text-sm font-bold mb-1">
-                                    GitHub URL
-                                </label>
+                                <label className={labelClasses}>GitHub URL</label>
                                 <input
                                     type="text"
                                     value={project.githubUrl}
                                     onChange={(e) => handleProjectChange(index, 'githubUrl', e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className={inputClasses}
                                 />
                             </div>
                         </div>
 
                         <div className="mb-2">
                             <div className="flex justify-between items-center mb-1">
-                                <label className="block text-gray-700 text-sm font-bold">
-                                    Tags
-                                </label>
+                                <label className={labelClasses}>Tags</label>
                                 <button
                                     type="button"
                                     onClick={() => addTag(index)}
-                                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-xs"
+                                    className={smallButtonClasses}
                                 >
                                     Add Tag
                                 </button>
@@ -421,13 +435,16 @@ export default function ProjectsSection() {
                                         type="text"
                                         value={tag}
                                         onChange={(e) => handleTagChange(index, tagIndex, e.target.value)}
-                                        className="shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-2"
+                                        className={inputClasses}
                                         required
                                     />
                                     <button
                                         type="button"
                                         onClick={() => removeTag(index, tagIndex)}
-                                        className="text-red-600 hover:text-red-800 text-sm"
+                                        className={`${theme === 'dark'
+                                            ? 'text-red-400 hover:text-red-300'
+                                            : 'text-red-600 hover:text-red-800'
+                                            } text-sm ml-2`}
                                     >
                                         Remove
                                     </button>
@@ -439,7 +456,10 @@ export default function ProjectsSection() {
             </div>
 
             {message && (
-                <div className={`mb-4 p-3 rounded ${message.includes('success') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                <div className={`mb-4 p-3 rounded ${message.includes('success')
+                    ? theme === 'dark' ? 'bg-green-800 text-green-100' : 'bg-green-100 text-green-700'
+                    : theme === 'dark' ? 'bg-red-800 text-red-100' : 'bg-red-100 text-red-700'
+                    }`}>
                     {message}
                 </div>
             )}
@@ -447,7 +467,7 @@ export default function ProjectsSection() {
             <div className="flex justify-end">
                 <button
                     type="submit"
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    className={buttonClasses}
                     disabled={isLoading}
                 >
                     {isLoading ? 'Saving...' : 'Save Changes'}
