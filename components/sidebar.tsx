@@ -7,7 +7,7 @@ import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
-import { VscHome, VscInfo, VscCode, VscBriefcase, VscMortarBoard, VscProject, VscMail } from "react-icons/vsc"
+import { VscHome, VscInfo, VscCode, VscBriefcase, VscMortarBoard, VscProject, VscMail, VscKey } from "react-icons/vsc"
 import Dock from "./animations/Dock"
 
 export function Sidebar() {
@@ -94,6 +94,7 @@ export function Sidebar() {
     { icon: <VscMortarBoard size={18} />, label: "Education", href: "#education" },
     { icon: <VscProject size={18} />, label: "Projects", href: "#projects" },
     { icon: <VscMail size={18} />, label: "Contact", href: "#contact" },
+    { icon: <VscKey size={18} />, label: "Admin", href: "/admin", isExternal: true }
   ]
 
   return (
@@ -106,7 +107,10 @@ export function Sidebar() {
           items={navItems.map((item) => ({
             icon: item.icon,
             label: item.label,
-            onClick: () => handleNavClick(undefined, item.href),
+            onClick: item.isExternal
+              ? () => window.location.href = item.href
+              : () => handleNavClick(undefined, item.href),
+            href: item.isExternal ? item.href : undefined,
           }))}
           baseItemSize={40}
           magnification={60}
@@ -149,20 +153,34 @@ export function Sidebar() {
               <ul className="space-y-6">
                 {navItems.map((link) => (
                   <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className={cn(
-                        "relative inline-block text-lg font-medium py-2 transition-colors",
-                        activeSection === link.href.substring(1)
-                          ? "border-l-4 border-gray-500 text-gray-300 pl-4"
-                          : "text-white hover:after:scale-x-100 after:scale-x-0 pl-4",
-                        "after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:h-[3px] after:w-full after:bg-gray-500",
-                        "after:origin-center after:transform after:-translate-x-1/2 after:transition-transform after:duration-300"
-                      )}
-                      onClick={(e) => handleNavClick(e, link.href)}
-                    >
-                      {link.label}
-                    </Link>
+                    {link.isExternal ? (
+                      <Link
+                        href={link.href}
+                        className={cn(
+                          "relative inline-block text-lg font-medium py-2 transition-colors",
+                          "text-white hover:after:scale-x-100 after:scale-x-0 pl-4",
+                          "after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:h-[3px] after:w-full after:bg-gray-500",
+                          "after:origin-center after:transform after:-translate-x-1/2 after:transition-transform after:duration-300"
+                        )}
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className={cn(
+                          "relative inline-block text-lg font-medium py-2 transition-colors",
+                          activeSection === link.href.substring(1)
+                            ? "border-l-4 border-gray-500 text-gray-300 pl-4"
+                            : "text-white hover:after:scale-x-100 after:scale-x-0 pl-4",
+                          "after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:h-[3px] after:w-full after:bg-gray-500",
+                          "after:origin-center after:transform after:-translate-x-1/2 after:transition-transform after:duration-300"
+                        )}
+                        onClick={(e) => handleNavClick(e, link.href)}
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

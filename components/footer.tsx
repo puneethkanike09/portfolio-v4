@@ -1,8 +1,47 @@
-import Link from "next/link";
-import { TbBrandWhatsapp, TbBrandGithubFilled, TbBrandWhatsappFilled, TbBrandLinkedinFilled, TbBrandInstagramFilled } from "react-icons/tb";
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { TbBrandWhatsapp, TbBrandGithubFilled, TbBrandLinkedinFilled, TbBrandInstagramFilled } from 'react-icons/tb';
+import { IconType } from 'react-icons';
+
+// Define interface for social link
+interface SocialLink {
+  platform: string;
+  url: string;
+}
+
+// Define interface for footer data
+interface FooterData {
+  socialLinks: SocialLink[];
+  copyrightText: string;
+}
 
 export function Footer() {
+  const [footerData, setFooterData] = useState<FooterData>({ socialLinks: [], copyrightText: '' });
   const currentYear = new Date().getFullYear();
+
+  useEffect(() => {
+    const fetchFooterData = async () => {
+      try {
+        const response = await fetch('/api/footer');
+        if (response.ok) {
+          const data = await response.json();
+          setFooterData(data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch footer data:', error);
+      }
+    };
+
+    fetchFooterData();
+  }, []);
+
+  // Type the keys of iconMap explicitly
+  const iconMap: { [key: string]: IconType } = {
+    instagram: TbBrandInstagramFilled,
+    linkedin: TbBrandLinkedinFilled,
+    whatsapp: TbBrandWhatsapp,
+    github: TbBrandGithubFilled,
+  };
 
   return (
     <footer className="border-t py-8 md:py-12">
@@ -15,22 +54,18 @@ export function Footer() {
           </div>
 
           <div className="flex space-x-6 mb-4 md:mb-0">
-            <Link href="https://www.instagram.com/k_puneeth_gowda?igsh=MWJ1Z2hmb3I5Z2JuNg==" target="_blank" aria-label="Instagram">
-              <TbBrandInstagramFilled className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
-            </Link>
-            <Link href="https://linkedin.com/in/puneeth-kanike/" target="_blank" aria-label="LinkedIn">
-              <TbBrandLinkedinFilled className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
-            </Link>
-            <Link href="https://api.whatsapp.com/send?phone=917975187240" target="_blank" aria-label="WhatsApp">
-              <TbBrandWhatsappFilled className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
-            </Link>
-            <Link href="https://github.com/puneethkanike09" target="_blank" aria-label="GitHub">
-              <TbBrandGithubFilled className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
-            </Link>
+            {footerData.socialLinks.map((link, index) => {
+              const Icon = iconMap[link.platform.toLowerCase()];
+              return (
+                <Link key={index} href={link.url} target="_blank" aria-label={link.platform}>
+                  <Icon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
+                </Link>
+              );
+            })}
           </div>
 
           <div className="text-sm text-muted-foreground text-center md:text-right">
-            &copy; {currentYear} Puneeth K. All rights reserved.
+            © {footerData.copyrightText || 'Puneeth K.'} All rights reserved.
           </div>
         </div>
       </div>

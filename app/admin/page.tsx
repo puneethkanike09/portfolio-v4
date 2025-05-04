@@ -27,6 +27,7 @@ import SkillsSection from './components/SkillsSection';
 import ProjectsSection from './components/ProjectsSection';
 import ExperienceSection from './components/ExperienceSection';
 import EducationSection from './components/EducationSection';
+import FooterSection from './components/FooterSection';
 import PasswordSection from './components/PasswordSection';
 import { ThemeProvider, useTheme } from '@/contexts/ThemeContext';
 
@@ -61,6 +62,8 @@ function AdminDashboard() {
                 return <ExperienceSection />;
             case 'education':
                 return <EducationSection />;
+            case 'footer':
+                return <FooterSection />;
             case 'password':
                 return <PasswordSection />;
             default:
@@ -103,7 +106,7 @@ function AdminDashboard() {
                     </button>
                 </div>
                 <div className="mt-6 flex-1">
-                    {['hero', 'about', 'skills', 'projects', 'experience', 'education', 'password'].map((tab) => (
+                    {['hero', 'about', 'skills', 'projects', 'experience', 'education', 'footer', 'password'].map((tab) => (
                         <button
                             key={tab}
                             className={`flex items-center w-full py-3 px-4 ${activeTab === tab
