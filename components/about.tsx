@@ -1,9 +1,42 @@
 import Image from "next/image";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ScrollReveal from "./animations/ScrollReveal";
+
+interface AboutData {
+  name: string;
+  description: string;
+  location: string;
+  email: string;
+  experience: string;
+  imageUrl: string;
+}
 
 export function About() {
   const sectionRef = useRef(null);
+  const [aboutData, setAboutData] = useState<AboutData>({
+    name: 'Puneeth K',
+    description: 'My approach is rooted in creating intuitive, responsive designs that not only look stunning but also perform flawlessly across all devices. I thrive on the challenge of turning complex problems into elegant, user-centric solutions. Whether it is building a sleek new website from scratch or enhancing an existing application with innovative features, I collaborate closely with clients to transform their vision into reality.',
+    location: 'Guruvayanakere, Belthangadi',
+    email: 'reachout.puneeth@gmail.com',
+    experience: '0.3 Years',
+    imageUrl: '/images/about/about.png'
+  });
+
+  useEffect(() => {
+    const fetchAboutData = async () => {
+      try {
+        const response = await fetch('/api/about');
+        if (response.ok) {
+          const data = await response.json();
+          setAboutData(data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch about data:', error);
+      }
+    };
+
+    fetchAboutData();
+  }, []);
 
   return (
     <section
@@ -22,7 +55,7 @@ export function About() {
           <div className="md:sticky md:top-24 self-start">
             <div className="relative h-[350px] sm:h-[500px] md:h-[700px] rounded-lg overflow-hidden shadow-lg mx-auto w-full max-w-md md:max-w-full">
               <Image
-                src="/images/about/about.png"
+                src={aboutData.imageUrl}
                 alt="Interior Designer Portrait"
                 fill
                 className="object-cover"
@@ -31,7 +64,7 @@ export function About() {
           </div>
 
           <div className="space-y-4 md:space-y-6">
-            <h3 className="text-2xl font-semibold">Puneeth K</h3>
+            <h3 className="text-2xl font-semibold">{aboutData.name}</h3>
 
             {/* ScrollReveal for large screens */}
             <div className="hidden lg:block">
@@ -43,30 +76,30 @@ export function About() {
                 blurStrength={20}
                 wordAnimationEnd="bottom center"
               >
-                My approach is rooted in creating intuitive, responsive designs that not only look stunning but also perform flawlessly across all devices. I thrive on the challenge of turning complex problems into elegant, user-centric solutions. Whether it's building a sleek new website from scratch or enhancing an existing application with innovative features, I collaborate closely with clients to transform their vision into reality.
+                {aboutData.description}
               </ScrollReveal>
             </div>
 
             {/* Fallback paragraphs for small screens */}
             <div className="block lg:hidden space-y-4">
               <p>
-                My approach is rooted in creating intuitive, responsive designs that not only look stunning but also perform flawlessly across all devices. I thrive on the challenge of turning complex problems into elegant, user-centric solutions. Whether it's building a sleek new website from scratch or enhancing an existing application with innovative features, I collaborate closely with clients to transform their vision into reality.
+                {aboutData.description}
               </p>
             </div>
 
             <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <h4 className="font-semibold">Location</h4>
-                <p className="text-gray-400">Guruvayanakere, Belthangadi</p>
+                <p className="text-gray-400">{aboutData.location}</p>
               </div>
               <div>
                 <h4 className="font-semibold">Email</h4>
-                <p className="text-gray-400 break-words">reachout.puneeth@gmail.com</p>
+                <p className="text-gray-400 break-words">{aboutData.email}</p>
               </div>
 
               <div>
                 <h4 className="font-semibold">Experience</h4>
-                <p className="text-gray-400">0.3 Years</p>
+                <p className="text-gray-400">{aboutData.experience}</p>
               </div>
             </div>
           </div>

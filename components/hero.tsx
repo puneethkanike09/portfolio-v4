@@ -3,9 +3,71 @@
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import TrueFocus from "./animations/TrueFocus"
+import { useEffect, useState } from "react"
+
+interface HeroData {
+  name: string;
+  mainPhrase: string;
+  description: string;
+  resumeUrl: string;
+  blurAmount: number;
+  borderColor: string;
+  animationDuration: number;
+  pauseBetweenAnimations: number;
+}
 
 export function Hero() {
-  const mainPhrase = "I build things for the Web"
+  const [heroData, setHeroData] = useState<HeroData>({
+    name: 'Puneeth K',
+    mainPhrase: 'I build things for the Web',
+    description: 'I specialize in building responsive and dynamic web applications using the MERN stack. I bring ideas to life through code.',
+    resumeUrl: '/files/puneethResume.pdf',
+    blurAmount: 5,
+    borderColor: 'black',
+    animationDuration: 2,
+    pauseBetweenAnimations: 1
+  });
+
+  useEffect(() => {
+    const fetchHeroData = async () => {
+      try {
+        const response = await fetch('/api/hero');
+        if (response.ok) {
+          const data = await response.json();
+          setHeroData(data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch hero data:', error);
+      }
+    };
+
+    fetchHeroData();
+  }, []);
+
+  const handleResumeDownload = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // If it's a Cloudinary URL, modify it to force download
+    if (heroData.resumeUrl.includes('cloudinary.com')) {
+      e.preventDefault();
+
+      // Create a temporary anchor element
+      const link = document.createElement('a');
+
+      // Extract the filename from the URL or use a default name
+      const filename = heroData.resumeUrl.split('/').pop() || 'resume.pdf';
+
+      // Set the download attribute to force download
+      link.href = heroData.resumeUrl;
+      link.download = filename;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+
+      // Trigger the download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    // If it's not a Cloudinary URL, let the default behavior handle it
+  };
 
   return (
     <section id="home" className="relative xl:min-h-screen flex items-center">
@@ -25,20 +87,20 @@ export function Hero() {
           <div className="space-y-6">
             <h1 className="text-5xl font-bold leading-tight">
               <TrueFocus
-                sentence="Puneeth K"
-                blurAmount={5}
-                borderColor="black"
-                animationDuration={2}
-                pauseBetweenAnimations={1}
+                sentence={heroData.name}
+                blurAmount={heroData.blurAmount}
+                borderColor={heroData.borderColor}
+                animationDuration={heroData.animationDuration}
+                pauseBetweenAnimations={heroData.pauseBetweenAnimations}
               />
             </h1>
             <div className="h-8 md:h-10">
               <p className="text-lg md:text-xl text-primary font-medium">
-                {mainPhrase}
+                {heroData.mainPhrase}
               </p>
             </div>
             <p className="text-lg text-muted-foreground max-w-md">
-              I specialize in building responsive and dynamic web applications using the MERN stack. I bring ideas to life through code.
+              {heroData.description}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button size="lg" asChild>
@@ -48,7 +110,11 @@ export function Hero() {
                 <a href="#contact">Get in Touch</a>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <a href="/files/puneethResume.pdf" download>
+                <a
+                  href={heroData.resumeUrl}
+                  download={heroData.resumeUrl.split('/').pop() || 'resume.pdf'}
+                  onClick={handleResumeDownload}
+                >
                   Resume
                 </a>
               </Button>
