@@ -33,10 +33,16 @@ export default function AdminLogin() {
                 body: JSON.stringify({ password }),
             });
 
+            const data = await response.json();
+
             if (response.ok) {
-                router.push('/admin');
+                // Add a small delay to ensure cookie is set
+                setTimeout(() => {
+                    router.push('/admin');
+                    router.refresh(); // Force refresh to ensure authentication state is updated
+                }, 100);
             } else {
-                setError('Invalid password');
+                setError(data.error || 'Invalid password');
             }
         } catch (error) {
             setError('An error occurred. Please try again.');
