@@ -44,31 +44,6 @@ export function Hero() {
     fetchHeroData();
   }, []);
 
-  const handleResumeDownload = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // If it's a Cloudinary URL, modify it to force download
-    if (heroData.resumeUrl.includes('cloudinary.com')) {
-      e.preventDefault();
-
-      // Create a temporary anchor element
-      const link = document.createElement('a');
-
-      // Extract the filename from the URL or use a default name
-      const filename = heroData.resumeUrl.split('/').pop() || 'resume.pdf';
-
-      // Set the download attribute to force download
-      link.href = heroData.resumeUrl;
-      link.download = filename;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-
-      // Trigger the download
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-    // If it's not a Cloudinary URL, let the default behavior handle it
-  };
-
   return (
     <section id="home" className="relative xl:min-h-screen flex items-center">
       <div className="absolute inset-0 z-0">
@@ -110,11 +85,7 @@ export function Hero() {
                 <a href="#contact">Get in Touch</a>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <a
-                  href={heroData.resumeUrl}
-                  download={heroData.resumeUrl.split('/').pop() || 'resume.pdf'}
-                  onClick={handleResumeDownload}
-                >
+                <a href={heroData.resumeUrl} download target="_blank" rel="noopener noreferrer">
                   Resume
                 </a>
               </Button>
