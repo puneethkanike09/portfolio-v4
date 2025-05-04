@@ -61,7 +61,7 @@ export function About() {
               </div>
               <div>
                 <h4 className="font-semibold">Email</h4>
-                <p className="text-gray-400">reachout.puneeth@gmail.com</p>
+                <p className="text-gray-400 break-words">reachout.puneeth@gmail.com</p>
               </div>
 
               <div>
